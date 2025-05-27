@@ -9,7 +9,7 @@ function App() {
     <div className="container max-w-[1080px] mx-auto text-center">
       <Header />
       <div className="flex justify-between gap-8">
-        <div className="w-[40%]">
+        <div className="w-[30%]">
           <AddNewNote />
         </div>
         <div className="w-[60%]">

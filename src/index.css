@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.text-field {
+  @apply w-full p-4 rounded-lg -text--text-700 bg-white;
+}
+
+.btn {
+  @apply rounded-lg p-3;
+}
+
+.btn--primary {
+  @apply -bg--primary-600 text-white text-base;
+}
