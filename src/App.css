@@ -22,19 +22,6 @@ button {
   border: none;
   cursor: pointer;
 }
-p {
-  text-align: left;
-}
-
-h1 {
-  margin-bottom: 1.5rem;
-  color: var(--text-700);
-}
-
-h2 {
-  margin-bottom: 1.5rem;
-  color: var(--text-700);
-}
 
 input[type="checkbox"] {
   transform: scale(1.5);
@@ -45,15 +32,6 @@ button {
   outline: none;
   cursor: pointer;
   background: none;
-}
-
-select {
-  padding: 0.5rem 1rem;
-  outline: none;
-  border: 1px solid var(--text-400);
-  border-radius: 0.75rem;
-  font-weight: 700;
-  color: var(--text-700);
 }
 
 .text-field {
