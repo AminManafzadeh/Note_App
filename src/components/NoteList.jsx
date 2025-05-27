@@ -1,18 +1,18 @@
 import { IoTrashOutline } from "react-icons/io5";
 
-function NoteList() {
+function NoteList({ notes }) {
   return (
     <div>
-      <NoteItem />
-      <NoteItem />
-      <NoteItem />
+      {notes?.map((note) => {
+        return <NoteItem key={note.id} note={note} />;
+      })}
     </div>
   );
 }
 
 export default NoteList;
 
-function NoteItem() {
+function NoteItem({ note }) {
   const options = {
     year: "numeric",
     month: "long",
@@ -22,8 +22,10 @@ function NoteItem() {
     <div className="p-4 bg-white rounded-xl mb-6">
       <div className="flex items-center justify-between pb-1 rounded-md mb-1 border-b  -border-b--text-100">
         <div>
-          <p className="text-lg -text--text-700 mb-2 font-bold">title</p>
-          <p className="-text--text-400 mb-2 font-medium">desc</p>
+          <p className="text-lg -text--text-700 mb-2 font-bold">
+            {note?.title}
+          </p>
+          <p className="-text--text-400 mb-2 font-medium">{note?.desc}</p>
         </div>
 
         <div className="flex gap-6 items-center">
@@ -35,7 +37,7 @@ function NoteItem() {
       </div>
 
       <div className="-text--text-300">
-        <p>{new Date().toLocaleDateString("en-US", options)}</p>
+        <p>{new Date(note?.createdAt).toLocaleDateString("en-US", options)}</p>
       </div>
     </div>
   );
