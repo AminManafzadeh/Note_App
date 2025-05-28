@@ -7,6 +7,7 @@ import { useState } from "react";
 
 function App() {
   const [notes, setNotes] = useState([]);
+  const [sortBy, setSortBy] = useState("latest");
 
   const handleAddNote = (newNote) => {
     setNotes([...notes, newNote]);
@@ -27,7 +28,11 @@ function App() {
 
   return (
     <div className="container max-w-[1080px] mx-auto text-center p-4">
-      <Header />
+      <Header
+        notes={notes}
+        sortBy={sortBy}
+        onSort={(e) => setSortBy(e.target.value)}
+      />
       <div className="flex justify-between gap-8">
         <div className="w-[30%]">
           <AddNewNote onAddNote={handleAddNote} />
@@ -36,6 +41,7 @@ function App() {
           <NoteStatus notes={notes} />
           <NoteList
             notes={notes}
+            sortBy={sortBy}
             onDeleteNote={handleDelete}
             onCompleted={handleCompleted}
           />

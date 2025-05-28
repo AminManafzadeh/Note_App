@@ -1,14 +1,11 @@
+import Message from "./Message";
+
 function NoteStatus({ notes }) {
   const allNotes = notes?.length;
   const completedNotes = notes?.filter((note) => note.completed).length;
   const openNotes = allNotes - completedNotes;
 
-  if (!allNotes)
-    return (
-      <h1 className="text-2xl font-bold uppercase">
-        no notes has been added yet!!
-      </h1>
-    );
+  if (!allNotes) return <Message>no notes has been added yet!!</Message>;
 
   return (
     <div>

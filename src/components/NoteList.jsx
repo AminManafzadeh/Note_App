@@ -1,9 +1,30 @@
 import { IoTrashOutline } from "react-icons/io5";
 
-function NoteList({ notes, onDeleteNote, onCompleted }) {
+function NoteList({ notes, onDeleteNote, onCompleted, sortBy }) {
+  let sortedNotes = notes;
+  switch (sortBy) {
+    case "earliest":
+      sortedNotes = [...notes].sort(
+        (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
+      );
+      break;
+
+    case "latest":
+      sortedNotes = [...notes].sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      break;
+
+    case "completed":
+      sortedNotes = [...notes].sort(
+        (a, b) => Number(a.completed) - Number(b.completed)
+      );
+      break;
+  }
+
   return (
     <div>
-      {notes?.map((note) => {
+      {sortedNotes?.map((note) => {
         return (
           <NoteItem
             key={note.id}
