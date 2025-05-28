@@ -12,6 +12,19 @@ function App() {
     setNotes([...notes, newNote]);
   };
 
+  const handleDelete = (id) => {
+    const filteredNotes = notes?.filter((note) => note.id !== id);
+    setNotes(filteredNotes);
+  };
+
+  const handleCompleted = (e) => {
+    const noteId = Number(e.target.value);
+    const completedNotes = notes.map((note) =>
+      note.id === noteId ? { ...note, completed: !note.completed } : note
+    );
+    setNotes(completedNotes);
+  };
+
   return (
     <div className="container max-w-[1080px] mx-auto text-center p-4">
       <Header />
@@ -20,8 +33,12 @@ function App() {
           <AddNewNote onAddNote={handleAddNote} />
         </div>
         <div className="w-[60%]">
-          <NoteStatus />
-          <NoteList notes={notes} />
+          <NoteStatus notes={notes} />
+          <NoteList
+            notes={notes}
+            onDeleteNote={handleDelete}
+            onCompleted={handleCompleted}
+          />
         </div>
       </div>
     </div>
