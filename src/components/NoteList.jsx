@@ -1,22 +1,25 @@
 import { IoTrashOutline } from "react-icons/io5";
+import { useNotes, useNotesDispatch } from "../context/NotesContext";
 
-function NoteList({ notes, onDeleteNote, onCompleted, sortBy }) {
+function NoteList({ sortBy }) {
+  const notes = useNotes();
+
   let sortedNotes = notes;
   switch (sortBy) {
     case "earliest":
-      sortedNotes = [...notes].sort(
+      sortedNotes = [...notes]?.sort(
         (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
       );
       break;
 
     case "latest":
-      sortedNotes = [...notes].sort(
+      sortedNotes = [...notes]?.sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
       );
       break;
 
     case "completed":
-      sortedNotes = [...notes].sort(
+      sortedNotes = [...notes]?.sort(
         (a, b) => Number(a.completed) - Number(b.completed)
       );
       break;
@@ -25,14 +28,7 @@ function NoteList({ notes, onDeleteNote, onCompleted, sortBy }) {
   return (
     <div>
       {sortedNotes?.map((note) => {
-        return (
-          <NoteItem
-            key={note.id}
-            note={note}
-            onDeleteNote={onDeleteNote}
-            onCompleted={onCompleted}
-          />
-        );
+        return <NoteItem key={note.id} note={note} />;
       })}
     </div>
   );
@@ -40,7 +36,8 @@ function NoteList({ notes, onDeleteNote, onCompleted, sortBy }) {
 
 export default NoteList;
 
-function NoteItem({ note, onDeleteNote, onCompleted }) {
+function NoteItem({ note }) {
+  const dispatch = useNotesDispatch();
   const options = {
     year: "numeric",
     month: "long",
@@ -62,14 +59,19 @@ function NoteItem({ note, onDeleteNote, onCompleted }) {
         </div>
 
         <div className="flex gap-6 items-center">
-          <button onClick={() => onDeleteNote(note.id)}>
+          <button
+            onClick={() => dispatch({ type: "deleteNote", payload: note.id })}
+          >
             <IoTrashOutline className="w-5 h-5 -text--rose-500 bg-none" />
           </button>
           <input
             type="checkbox"
             name={note.id}
             value={note.id}
-            onChange={onCompleted}
+            onChange={(e) => {
+              const noteId = Number(e.target.value);
+              dispatch({ type: "completedNote", payload: noteId });
+            }}
             checked={note.completed}
           />
         </div>

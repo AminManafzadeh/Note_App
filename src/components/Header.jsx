@@ -1,4 +1,7 @@
-function Header({ sortBy, onSort, notes }) {
+import { useNotes } from "../context/NotesContext";
+
+function Header({ sortBy, onSort }) {
+  const notes = useNotes();
   const allNotes = notes?.length;
   return (
     <div className="flex items-center justify-evenly mb-12 border-b -border-b--text-400 py-4">
